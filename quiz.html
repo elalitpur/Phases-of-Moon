@@ -1,71 +1,206 @@
-def moon_phases_quiz():
-    questions = [
-        {
-            "question": "What is the first phase of the moon in a lunar cycle?",
-            "options": ["A) Full Moon", "B) New Moon", "C) Waxing Crescent", "D) Last Quarter"],
-            "answer": "B"
-        },
-        {
-            "question": "During which phase is the moon visible as a thin crescent growing larger?",
-            "options": ["A) Waning Crescent", "B) Waxing Gibbous", "C) Waxing Crescent", "D) First Quarter"],
-            "answer": "C"
-        },
-        {
-            "question": "What phase occurs when half the moon is illuminated and it's between new moon and full moon?",
-            "options": ["A) Full Moon", "B) Last Quarter", "C) First Quarter", "D) New Moon"],
-            "answer": "C"
-        },
-        {
-            "question": "Which phase is when the moon is fully illuminated?",
-            "options": ["A) Waxing Gibbous", "B) Full Moon", "C) Waning Gibbous", "D) New Moon"],
-            "answer": "B"
-        },
-        {
-            "question": "In the waning gibbous phase, the illuminated portion is:",
-            "options": ["A) Decreasing", "B) Increasing", "C) At maximum", "D) Invisible"],
-            "answer": "A"
-        },
-        {
-            "question": "What comes right after the full moon?",
-            "options": ["A) New Moon", "B) Waning Gibbous", "C) Waxing Crescent", "D) First Quarter"],
-            "answer": "B"
-        },
-        {
-            "question": "The last quarter phase is also known as:",
-            "options": ["A) Third Quarter", "B) Half Moon", "C) Gibbous", "D) Crescent"],
-            "answer": "A"
-        },
-        {
-            "question": "How long does a full lunar cycle (from new moon to new moon) typically take?",
-            "options": ["A) 24 hours", "B) 7 days", "C) 29.5 days", "D) 365 days"],
-            "answer": "C"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Phases Quiz for Grade 7</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            padding: 20px;
         }
-    ]
+        h1 {
+            color: #2e8b57;
+        }
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        img {
+            max-width: 200px;
+            height: auto;
+            margin: 10px;
+        }
+        #score {
+            color: #ff6347;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌙 Moon Phases Quiz 🌙</h1>
+    <p>Hi! Let's learn about the moon's phases. Answer the questions and see how much you know. Good luck! 🚀</p>
     
-    score = 0
-    total_questions = len(questions)
+    <div id="quiz">
+        <div class="question" id="q1">
+            <p>1. What is the first phase of the moon in a cycle?</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/New_moon.jpg/200px-New_moon.jpg" alt="New Moon">
+            <div class="options">
+                <button onclick="checkAnswer('q1', 'B')">A) Full Moon</button>
+                <button onclick="checkAnswer('q1', 'B')">B) New Moon</button>
+                <button onclick="checkAnswer('q1', 'B')">C) Waxing Crescent</button>
+                <button onclick="checkAnswer('q1', 'B')">D) Last Quarter</button>
+            </div>
+        </div>
+        
+        <div class="question" id="q2" style="display:none;">
+            <p>2. During which phase does the moon look like a growing smile?</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Waxing_crescent.jpg/200px-Waxing_crescent.jpg" alt="Waxing Crescent">
+            <div class="options">
+                <button onclick="checkAnswer('q2', 'C')">A) Waning Crescent</button>
+                <button onclick="checkAnswer('q2', 'C')">B) Waxing Gibbous</button>
+                <button onclick="checkAnswer('q2', 'C')">C) Waxing Crescent</button>
+                <button onclick="checkAnswer('q2', 'C')">D) First Quarter</button>
+            </div>
+        </div>
+        
+        <div class="question" id="q3" style="display:none;">
+            <p>3. What phase is when half the moon is lit, like a half pizza?</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/First_quarter.jpg/200px-First_quarter.jpg" alt="First Quarter">
+            <div class="options">
+                <button onclick="checkAnswer('q3', 'C')">A) Full Moon</button>
+                <button onclick="checkAnswer('q3', 'C')">B) Last Quarter</button>
+                <button onclick="checkAnswer('q3', 'C')">C) First Quarter</button>
+                <button onclick="checkAnswer('q3', 'C')">D) New Moon</button>
+            </div>
+        </div>
+        
+        <div class="question" id="q4" style="display:none;">
+            <p>4. Which phase is the moon fully bright?</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Full_moon.jpg/200px-Full_moon.jpg" alt="Full Moon">
+            <div class="options">
+                <button onclick="checkAnswer('q4', 'B')">A) Waxing Gibbous</button>
+                <button onclick="checkAnswer('q4', 'B')">B) Full Moon</button>
+                <button onclick="checkAnswer('q4', 'B')">C) Waning Gibbous</button>
+                <button onclick="checkAnswer('q4', 'B')">D) New Moon</button>
+            </div>
+        </div>
+        
+        <div class="question" id="q5" style="display:none;">
+            <p>5. In waning gibbous, the lit part is getting:</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Waning_gibbous.jpg/200px-Waning_gibbous.jpg" alt="Waning Gibbous">
+            <div class="options">
+                <button onclick="checkAnswer('q5', 'A')">A) Smaller</button>
+                <button onclick="checkAnswer('q5', 'A')">B) Bigger</button>
+                <button onclick="checkAnswer('q5', 'A')">C) Full</button>
+                <button onclick="checkAnswer('q5', 'A')">D) Gone</button>
+            </div>
+        </div>
+        
+        <div class="question" id="q6" style="display:none;">
+            <p>6. What comes right after the full moon?</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Waning_gibbous.jpg/200px-Waning_gibbous.jpg" alt="Waning Gibbous">
+            <div class="options">
+                <button onclick="checkAnswer('q6', 'B')">A) New Moon</button>
+                <button onclick="checkAnswer('q6', 'B')">B) Waning Gibbous</button>
+                <button onclick="checkAnswer('q6', 'B')">C) Waxing Crescent</button>
+                <button onclick="checkAnswer('q6', 'B')">D) First Quarter</button>
+            </div>
+        </div>
+        
+        <div class="question" id="q7" style="display:none;">
+            <p>7. Last quarter is also called:</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Last_quarter.jpg/200px-Last_quarter.jpg" alt="Last Quarter">
+            <div class="options">
+                <button onclick="checkAnswer('q7', 'A')">A) Third Quarter</button>
+                <button onclick="checkAnswer('q7', 'A')">B) Half Moon</button>
+                <button onclick="checkAnswer('q7', 'A')">C) Gibbous</button>
+                <button onclick="checkAnswer('q7', 'A')">D) Crescent</button>
+            </div>
+        </div>
+        
+        <div class="question" id="q8" style="display:none;">
+            <p>8. How long is a full moon cycle?</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/New_moon.jpg/200px-New_moon.jpg" alt="Moon Cycle">
+            <div class="options">
+                <button onclick="checkAnswer('q8', 'C')">A) 1 day</button>
+                <button onclick="checkAnswer('q8', 'C')">B) 1 week</button>
+                <button onclick="checkAnswer('q8', 'C')">C) About 30 days</button>
+                <button onclick="checkAnswer('q8', 'C')">D) 1 year</button>
+            </div>
+        </div>
+    </div>
     
-    print("Welcome to the Moon Phases Quiz!")
-    print("Answer each question by typing the letter of your choice (A, B, C, or D).\n")
+    <div class="result" id="result" style="display:none;">
+        <p>Quiz Done! Your score: <span id="score">0</span>/8</p>
+        <p id="message"></p>
+    </div>
     
-    for i, q in enumerate(questions, 1):
-        print(f"Question {i}: {q['question']}")
-        for option in q['options']:
-            print(option)
-        user_answer = input("Your answer: ").strip().upper()
-        if user_answer == q['answer']:
-            print("Correct!\n")
-            score += 1
-        else:
-            print(f"Incorrect. The correct answer is {q['answer']}.\n")
-    
-    print(f"Quiz complete! You scored {score}/{total_questions}.")
-    if score == total_questions:
-        print("Perfect! You're a moon phase expert.")
-    elif score >= total_questions // 2:
-        print("Good job! You know your phases.")
-    else:
-        print("Keep studying the night sky!")
-
-# Run the quiz
-moon_phases_quiz()
+    <script>
+        let score = 0;
+        let currentQuestion = 1;
+        const totalQuestions = 8;
+        const answers = {
+            q1: 'B',
+            q2: 'C',
+            q3: 'C',
+            q4: 'B',
+            q5: 'A',
+            q6: 'B',
+            q7: 'A',
+            q8: 'C'
+        };
+        
+        function checkAnswer(questionId, selected) {
+            const correct = answers[questionId];
+            if (selected === correct) {
+                score++;
+                alert("Yay! Correct! 🌟");
+            } else {
+                alert("Oops! Try again next time. The right answer is " + correct + ".");
+            }
+            
+            document.getElementById(questionId).style.display = 'none';
+            currentQuestion++;
+            if (currentQuestion <= totalQuestions) {
+                document.getElementById('q' + currentQuestion).style.display = 'block';
+            } else {
+                showResult();
+            }
+        }
+        
+        function showResult() {
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('score').textContent = score;
+            let message = "";
+            if (score === 8) {
+                message = "Wow! You're a moon expert! 🏆";
+            } else if (score >= 5) {
+                message = "Great job! Keep exploring the sky! 🌌";
+            } else {
+                message = "Nice try! Learn more about the moon. 📚";
+            }
+            document.getElementById('message').textContent = message;
+        }
+    </script>
+</body>
+</html>
