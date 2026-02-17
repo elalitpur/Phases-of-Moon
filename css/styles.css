@@ -1,13 +1,13 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #1a2c91;
-  color: hsl(188, 100%, 94%);
+  background-color: #489194;
+  color: hsl(185, 16%, 86%);
   margin: 0;
   padding: 0;
   line-height: 1.6;
 }
 
-a { color: #a0d8ef; text-decoration: none; }
+a { color: #84bed4; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 header {
