@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Phases Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0b0e3a, #1a1a2e);
+            color: #F4F6F0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        .quiz-container {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .question {
+            display: none;
+            text-align: left;
+        }
+        .question.active {
+            display: block;
+        }
+        .question h3 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .moons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .moon-option {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .moon-option:hover {
+            transform: scale(1.05);
+        }
+        .sphere {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .hemisphere {
+            width: 50%;
+            height: 100%;
+        }
+        .light {
+            background: radial-gradient(circle, #fff 0%, #f0f0f0 70%, #ccc 100%);
+        }
+        .dark {
+            background: radial-gradient(circle, #333 0%, #111 70%, #000 100%);
+        }
+        .divider, .divider::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+        .divider {
+            background: #111;
+        }
+        .divider::after {
+            content: '';
+            background: #f0f0f0;
+            transform: rotateY(180deg);
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        label:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #357abd;
+        }
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        #score {
+            font-size: 1.5em;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <h1>🌙 Moon Phases Quiz</h1>
+    <div class="quiz-container">
+        <div id="quiz">
+            <!-- Questions will be populated by JS -->
+        </div>
+        <div id="score" style="display: none;"></div>
+    </div>
+
+    <script>
+        const phases = [
+            { name: 'New Moon', rotation: 0 },
+            { name: 'Waxing Crescent', rotation: 45 },
+            { name: 'First Quarter', rotation: 90 },
+            { name: 'Waxing Gibbous', rotation: 135 },
+            { name: 'Full Moon', rotation: 180 },
+            { name: 'Waning Gibbous', rotation: 225 },
+            { name: 'Last Quarter', rotation: 270 },
+            { name: 'Waning Crescent', rotation: 315 }
+        ];
+
+        const questions = [
+            {
+                text: 'Which phase is this?',
+                correct: 0,
+                options: phases.map((p, i) => i)
+            },
+            {
+                text: 'Identify the Full Moon:',
+                correct: 4,
+                options: [1, 3, 4, 6]
+            },
+            {
+                text: "What's the phase right after New Moon?",
+                correct: 1,
+                options: [0, 1, 7, 3]
+            },
+            {
+                text: 'Which shows half the moon illuminated (waxing)?',
+                correct: 2,
+                options: [2, 5, 0, 4]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function createMoon(rotation) {
+            const sphere = document.createElement('div');
+            sphere.className = 'sphere';
+            const lightH = document.createElement('div');
+            lightH.className = 'hemisphere light';
+            const darkH = document.createElement('div');
+            darkH.className = 'hemisphere dark';
+            const divider = document.createElement('div');
+            divider.className = 'divider';
+            divider.style.transform = `rotate3d(0, 1, 0, ${rotation}deg)`;
+            sphere.appendChild(lightH);
+            sphere.appendChild(darkH);
+            sphere.appendChild(divider);
+            return sphere;
+        }
+
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function showQuestion(index) {
+            const quiz = document.getElementById('quiz');
+            quiz.innerHTML = '';
+            const q = questions[index];
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question active';
+            questionDiv.innerHTML = `<h3>${q.text}</h3>`;
+            const moonsDiv = document.createElement('div');
+            moonsDiv.className = 'moons';
+            q.options.forEach(optIdx => {
+                const label = document.createElement('label');
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'answer';
+                input.value = optIdx;
+                const moon = createMoon(phases[optIdx].rotation);
+                moon.className = 'moon-option';
+                label.appendChild(input);
+                label.appendChild(moon);
+                label.appendChild(document.createTextNode(` ${phases[optIdx].name}`));
+                moonsDiv.appendChild(label);
+            });
+            questionDiv.appendChild(moonsDiv);
+            const nextBtn = document.createElement('button');
+            nextBtn.textContent = 'Next';
+            nextBtn.onclick = () => nextQuestion();
+            questionDiv.appendChild(nextBtn);
+            quiz.appendChild(questionDiv);
+        }
+
+        function nextQuestion() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            if (selecte
