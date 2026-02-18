@@ -1,197 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moon Phases Quiz for Grade 7</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Phases of the Moon Quiz - Grade 7</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #fdfeff;
-            color: #030303;
-            text-align: center;
-            padding: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+            color: #333;
         }
-        h1 {
-            color: #757373;
+        h1 { 
+            color: #1e3a8a; 
+            text-align: center; 
+            border-bottom: 3px solid #1e3a8a; 
+            padding-bottom: 10px; 
         }
-        .question {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #c1c3c5;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(3, 3, 3, 0.1);
+        .question { 
+            background: white; 
+            padding: 20px; 
+            margin: 20px 0; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
         }
-        .options {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .question h3 { 
+            margin-top: 0; 
+            color: #1e3a8a; 
         }
-        button {
-            margin: 5px;
-            padding: 10px 20px;
-            background-color: #f1f5f1;
-            color: rgba(2, 2, 2, 0.89);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        label { 
+            display: block; 
+            margin: 10px 0; 
+            cursor: pointer; 
         }
-        button:hover {
-            background-color: #b4c0b4;
+        input[type="radio"] { 
+            margin-right: 10px; 
         }
-        .result {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
+        button { 
+            display: block; 
+            margin: 30px auto; 
+            padding: 12px 30px; 
+            font-size: 1.1rem; 
+            background: #1e3a8a; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
         }
-        img {
-            max-width: 200px;
-            height: auto;
-            margin: 10px;
+        button:hover { 
+            background: #1e40af; 
         }
-        #score {
-            color: #a53b28;
+        #result { 
+            margin: 30px 0; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+            display: none; 
+        }
+        .score { 
+            font-size: 1.6rem; 
+            font-weight: bold; 
+            text-align: center; 
+            margin-bottom: 20px; 
+        }
+        .feedback-item { 
+            margin: 15px 0; 
+            padding: 12px; 
+            border-left: 5px solid; 
+        }
+        .correct { 
+            border-left-color: #1e3a8a; 
+            background: #eff6ff; 
+        }
+        .incorrect { 
+            border-left-color: #c0392b; 
+            background: #fff5f5; 
+        }
+        .answer-line { 
+            margin: 6px 0; 
+            font-weight: bold; 
+        }
+        .explanation { 
+            margin-top: 8px; 
+            color: #444; 
         }
     </style>
 </head>
 <body>
-    <h1>🌙 Moon Phases Quiz 🌙</h1>
-    <p>Hi! Let's learn about the moon's phases. Answer the questions and see how much you know. Good luck! 🚀</p>
-    
-    <div id="quiz">
-        <div class="question" id="q1">
-            <p>1. What is the first phase of the moon in a cycle?</p>
-                <button onclick="checkAnswer('q1', 'B')">A) Full Moon</button>
-                <button onclick="checkAnswer('q1', 'B')">B) New Moon</button>
-                <button onclick="checkAnswer('q1', 'B')">C) Waxing Crescent</button>
-                <button onclick="checkAnswer('q1', 'B')">D) Last Quarter</button>
-            </div>
+
+    <h1>Phases of the Moon Quiz – Grade 7</h1>
+    <p style="text-align: center; font-style: italic;">Choose the correct answer for each question!</p>
+
+    <form id="quizForm">
+
+        <div class="question">
+            <h3>1. How long does one complete cycle of Moon phases take (approximately)?</h3>
+            <label><input type="radio" name="q1" value="A"> A) 7 days</label>
+            <label><input type="radio" name="q1" value="B"> B) 29.5 days</label>
+            <label><input type="radio" name="q1" value="C"> C) 365 days</label>
+            <label><input type="radio" name="q1" value="D"> D) 24 hours</label>
         </div>
-        
-        <div class="question" id="q2" style="display:none;">
-            <p>2. During which phase does the moon look like a growing smile?</p>
-            <div class="options">
-                <button onclick="checkAnswer('q2', 'C')">A) Waning Crescent</button>
-                <button onclick="checkAnswer('q2', 'C')">B) Waxing Gibbous</button>
-                <button onclick="checkAnswer('q2', 'C')">C) Waxing Crescent</button>
-                <button onclick="checkAnswer('q2', 'C')">D) First Quarter</button>
-            </div>
+
+        <div class="question">
+            <h3>2. Which phase occurs when the Moon is completely dark from Earth?</h3>
+            <label><input type="radio" name="q2" value="A"> A) Full Moon</label>
+            <label><input type="radio" name="q2" value="B"> B) First Quarter</label>
+            <label><input type="radio" name="q2" value="C"> C) New Moon</label>
+            <label><input type="radio" name="q2" value="D"> D) Waxing Gibbous</label>
         </div>
-        
-        <div class="question" id="q3" style="display:none;">
-            <p>3. What phase is when half the moon is lit, like a half pizza?</p>
-            <div class="options">
-                <button onclick="checkAnswer('q3', 'C')">A) Full Moon</button>
-                <button onclick="checkAnswer('q3', 'C')">B) Last Quarter</button>
-                <button onclick="checkAnswer('q3', 'C')">C) First Quarter</button>
-                <button onclick="checkAnswer('q3', 'C')">D) New Moon</button>
-            </div>
+
+        <div class="question">
+            <h3>3. What does "waxing" mean in Moon phases?</h3>
+            <label><input type="radio" name="q3" value="A"> A) The lit part is getting smaller</label>
+            <label><input type="radio" name="q3" value="B"> B) The lit part is getting bigger</label>
+            <label><input type="radio" name="q3" value="C"> C) The Moon is not visible</label>
+            <label><input type="radio" name="q3" value="D"> D) The Moon is full</label>
         </div>
-        
-        <div class="question" id="q4" style="display:none;">
-            <p>4. Which phase is the moon fully bright?</p>
-            <div class="options">
-                <button onclick="checkAnswer('q4', 'B')">A) Waxing Gibbous</button>
-                <button onclick="checkAnswer('q4', 'B')">B) Full Moon</button>
-                <button onclick="checkAnswer('q4', 'B')">C) Waning Gibbous</button>
-                <button onclick="checkAnswer('q4', 'B')">D) New Moon</button>
-            </div>
+
+        <div class="question">
+            <h3>4. In which phase can you see exactly half of the Moon's lit side?</h3>
+            <label><input type="radio" name="q4" value="A"> A) New Moon</label>
+            <label><input type="radio" name="q4" value="B"> B) Full Moon</label>
+            <label><input type="radio" name="q4" value="C"> C) First Quarter and Last Quarter</label>
+            <label><input type="radio" name="q4" value="D"> D) Waxing Crescent</label>
         </div>
-        
-        <div class="question" id="q5" style="display:none;">
-            <p>5. In waning gibbous, the lit part is getting:</p>
-            <div class="options">
-                <button onclick="checkAnswer('q5', 'A')">A) Smaller</button>
-                <button onclick="checkAnswer('q5', 'A')">B) Bigger</button>
-                <button onclick="checkAnswer('q5', 'A')">C) Full</button>
-                <button onclick="checkAnswer('q5', 'A')">D) Gone</button>
-            </div>
+
+        <div class="question">
+            <h3>5. After the Full Moon, what is the next phase called?</h3>
+            <label><input type="radio" name="q5" value="A"> A) Waxing Gibbous</label>
+            <label><input type="radio" name="q5" value="B"> B) Waning Gibbous</label>
+            <label><input type="radio" name="q5" value="C"> C) First Quarter</label>
+            <label><input type="radio" name="q5" value="D"> D) New Moon</label>
         </div>
-        
-        <div class="question" id="q6" style="display:none;">
-            <p>6. What comes right after the full moon?</p>
-            <div class="options">
-                <button onclick="checkAnswer('q6', 'B')">A) New Moon</button>
-                <button onclick="checkAnswer('q6', 'B')">B) Waning Gibbous</button>
-                <button onclick="checkAnswer('q6', 'B')">C) Waxing Crescent</button>
-                <button onclick="checkAnswer('q6', 'B')">D) First Quarter</button>
-            </div>
+
+        <div class="question">
+            <h3>6. Why do we see different phases of the Moon?</h3>
+            <label><input type="radio" name="q6" value="A"> A) The Moon changes shape every night</label>
+            <label><input type="radio" name="q6" value="B"> B) Different amounts of the Moon's lit side are visible from Earth</label>
+            <label><input type="radio" name="q6" value="C"> C) The Sun moves around the Moon</label>
+            <label><input type="radio" name="q6" value="D"> D) Clouds cover different parts of the Moon</label>
         </div>
-        
-        <div class="question" id="q7" style="display:none;">
-            <p>7. Last quarter is also called:</p>
-            <div class="options">
-                <button onclick="checkAnswer('q7', 'A')">A) Third Quarter</button>
-                <button onclick="checkAnswer('q7', 'A')">B) Half Moon</button>
-                <button onclick="checkAnswer('q7', 'A')">C) Gibbous</button>
-                <button onclick="checkAnswer('q7', 'A')">D) Crescent</button>
-            </div>
+
+        <div class="question">
+            <h3>7. Which phase comes between Waxing Crescent and Waxing Gibbous?</h3>
+            <label><input type="radio" name="q7" value="A"> A) Full Moon</label>
+            <label><input type="radio" name="q7" value="B"> B) First Quarter</label>
+            <label><input type="radio" name="q7" value="C"> C) Last Quarter</label>
+            <label><input type="radio" name="q7" value="D"> D) Waning Crescent</label>
         </div>
-        
-        <div class="question" id="q8" style="display:none;">
-            <p>8. How long is a full moon cycle?</p>
-            <div class="options">
-                <button onclick="checkAnswer('q8', 'C')">A) 1 day</button>
-                <button onclick="checkAnswer('q8', 'C')">B) 1 week</button>
-                <button onclick="checkAnswer('q8', 'C')">C) About 15 days</button>
-                <button onclick="checkAnswer('q8', 'C')">D) 1 year</button>
-            </div>
+
+        <div class="question">
+            <h3>8. During which phase is the Moon mostly lit but not completely full?</h3>
+            <label><input type="radio" name="q8" value="A"> A) Waxing Crescent</label>
+            <label><input type="radio" name="q8" value="B"> B) Waxing Gibbous and Waning Gibbous</label>
+            <label><input type="radio" name="q8" value="C"> C) New Moon</label>
+            <label><input type="radio" name="q8" value="D"> D) First Quarter</label>
         </div>
+
+        <div class="question">
+            <h3>9. What does "waning" mean?</h3>
+            <label><input type="radio" name="q9" value="A"> A) The lit part is growing</label>
+            <label><input type="radio" name="q9" value="B"> B) The lit part is shrinking</label>
+            <label><input type="radio" name="q9" value="C"> C) The Moon is invisible</label>
+            <label><input type="radio" name="q9" value="D"> D) The Moon is full</label>
+        </div>
+
+        <div class="question">
+            <h3>10. Which phase comes right before the New Moon?</h3>
+            <label><input type="radio" name="q10" value="A"> A) Full Moon</label>
+            <label><input type="radio" name="q10" value="B"> B) Waxing Gibbous</label>
+            <label><input type="radio" name="q10" value="C"> C) Waning Crescent</label>
+            <label><input type="radio" name="q10" value="D"> D) First Quarter</label>
+        </div>
+
+        <button type="button" onclick="checkAnswers()">Submit Quiz</button>
+
+    </form>
+
+    <div id="result">
+        <div class="score" id="scoreText"></div>
+        <div id="feedback"></div>
     </div>
-    
-    <div class="result" id="result" style="display:none;">
-        <p>Quiz Done! Your score: <span id="score">0</span>/8</p>
-        <p id="message"></p>
-    </div>
-    
+
     <script>
-        let score = 0;
-        let currentQuestion = 1;
-        const totalQuestions = 8;
-        const answers = {
-            q1: 'B',
-            q2: 'C',
-            q3: 'C',
-            q4: 'B',
-            q5: 'A',
-            q6: 'B',
-            q7: 'A',
-            q8: 'C'
-        };
-        
-        function checkAnswer(questionId, selected) {
-            const correct = answers[questionId];
-            if (selected === correct) {
-                score++;
-                alert("Yay! Correct! 🌟");
-            } else {
-                alert("Oops! Try again next time. The right answer is " + correct + ".");
-            }
-            
-            document.getElementById(questionId).style.display = 'none';
-            currentQuestion++;
-            if (currentQuestion <= totalQuestions) {
-                document.getElementById('q' + currentQuestion).style.display = 'block';
-            } else {
-                showResult();
-            }
-        }
-        
-        function showResult() {
-            document.getElementById('quiz').style.display = 'none';
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('score').textContent = score;
+        const quizData = [
+            { q: 1, correct: "B", text: "29.5 days", expl: "One full cycle of Moon phases takes about 29.5 days." },
+            { q: 2, correct: "C", text: "New Moon", expl: "New Moon is when the Moon is between Earth and Sun — we see the dark side." },
+            { q: 3, correct: "B", text: "The lit part is getting bigger", expl: "Waxing means the visible lit portion is increasing." },
+            { q: 4, correct: "C", text: "First Quarter and Last Quarter", expl: "Both First and Last Quarter show exactly half the Moon lit." },
+            { q: 5, correct: "B", text: "Waning Gibbous", expl: "After Full Moon the lit part starts shrinking — that's Waning Gibbous." },
+            { q: 6, correct: "B", text: "Different amounts of the Moon's lit side are visible from Earth", expl: "The Moon reflects sunlight, and we see different portions as it orbits Earth." },
+            { q: 7, correct: "B", text: "First Quarter", expl: "The sequence is: Waxing Crescent → First Quarter → Waxing Gibbous." },
+            { q: 8, correct: "B", text: "Waxing Gibbous and Waning Gibbous", expl: "Both Gibbous phases are more than half lit but not full." },
+            { q: 9, correct: "B", text: "The lit part is shrinking", expl: "Waning means the visible lit portion is decreasing." },
+            { q:10, correct: "C", text: "Waning Crescent", expl: "Waning Crescent is the last thin crescent before New Moon." }
+        ];
+
+        function checkAnswers() {
+            let score = 0;
+            let feedbackHTML = "";
+
+            quizData.forEach(item => {
+                const selected = document.querySelector(`input[name="q${item.q}"]:checked`);
+                const userAnswer = selected ? selected.value : null;
+                const isCorrect = userAnswer === item.correct;
+
+                if (isCorrect) {
+                    score++;
+                }
+
+                const statusClass = isCorrect ? "correct" : "incorrect";
+                const statusText = isCorrect ? "Correct ✓" : "Incorrect ✗";
+
+                let userText = "Not answered";
+                if (userAnswer) {
+                    const chosenOption = document.querySelector(`input[name="q${item.q}"][value="${userAnswer}"]`).parentElement.textContent.trim().substring(3);
+                    userText = chosenOption;
+                }
+
+                feedbackHTML += `
+                    <div class="feedback-item ${statusClass}">
+                        <div class="answer-line">Question ${item.q}: ${statusText}</div>
+                        ${!isCorrect ? `
+                            <div class="answer-line">You chose: ${userText}</div>
+                            <div class="answer-line">Correct answer: ${item.text}</div>
+                            <div class="explanation">Explanation: ${item.expl}</div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
             let message = "";
-            if (score === 8) {
-                message = "Wow! You're a moon expert! 🏆";
-            } else if (score >= 5) {
-                message = "Great job! Keep exploring the sky! 🌌";
-            } else {
-                message = "Nice try! Learn more about the moon. 📚";
-            }
-            document.getElementById('message').textContent = message;
+            let color = "";
+
+            if (score >= 9) { message = `Excellent! Moon Phases Expert! 🌕`; color = "#1e3a8a"; }
+            else if (score >= 7) { message = `Great job!`; color = "#1e3a8a"; }
+            else if (score >= 5) { message = `Good effort — review the explanations below!`; color = "#b45309"; }
+            else { message = `Keep learning! Check the correct answers and explanations.`; color = "#c0392b"; }
+
+            document.getElementById("scoreText").innerHTML = `${message} (${score}/10)`;
+            document.getElementById("scoreText").style.color = color;
+            document.getElementById("feedback").innerHTML = feedbackHTML;
+            document.getElementById("result").style.display = "block";
+
+            window.scrollTo({ top: document.getElementById("result").offsetTop - 40, behavior: "smooth" });
         }
     </script>
+
 </body>
 </html>
