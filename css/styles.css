@@ -66,7 +66,7 @@ nav ul li { margin: 0.5em 1.5em; }
 section {
   margin: 2em 0;
   padding: 1.5em;
-  background: rgba(239, 234, 234, 0.562);
+  background: rgb(96, 95, 95);
   border-radius: 8px;
 }
 
@@ -87,7 +87,7 @@ img {
 footer {
   text-align: center;
   padding: 2em;
-  background: #000;
+  background: #f0efef;
   margin-top: 2em;
 }
 
